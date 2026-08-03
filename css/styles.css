@@ -386,6 +386,34 @@ button { font: inherit; border: none; cursor: pointer; background: none; }
   gap: var(--sp-sm);
 }
 
+.exp-subroles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xl);
+}
+.exp-subrole {
+  position: relative;
+  padding-left: var(--sp-lg);
+  border-left: 2px solid var(--surface-pressed);
+}
+.exp-subrole__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-md);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-xs);
+}
+.exp-subrole__header .exp-role {
+  margin-bottom: 0;
+}
+.exp-subrole__date {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--mute);
+  white-space: nowrap;
+}
+
 /* ═══ PROJECTS ═══ */
 .projects-grid {
   display: grid;
