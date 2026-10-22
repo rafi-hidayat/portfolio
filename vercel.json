@@ -1,7 +1,7 @@
 {
-  "rewrites": [
-    { "source": "/articles/(.*)", "destination": "/articles/$1.html" }
-  ],
+  "framework": "astro",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false
 }

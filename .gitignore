@@ -5,3 +5,7 @@ node_modules/
 .claude/
 DESIGN.md
 Rafi_Portfolio_Content.docx
+CLAUDE.md
+.claude/
+dist/
+.astro/
