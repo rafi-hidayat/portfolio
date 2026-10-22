@@ -81,10 +81,13 @@ document.querySelectorAll('.project-card').forEach(card => {
   });
 });
 
-modalCloseBtn.addEventListener('click', closeModal);
-modalOverlay.addEventListener('click', e => {
-  if (e.target === modalOverlay) closeModal();
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal();
-});
+/* Only the home page has the modal */
+if (modalOverlay) {
+  modalCloseBtn.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', e => {
+    if (e.target === modalOverlay) closeModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal();
+  });
+}

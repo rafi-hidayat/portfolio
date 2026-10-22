@@ -10,9 +10,16 @@ This is my personal portfolio, built to give potential clients and collaborators
 
 ## Tech stack
 
+- [Astro](https://astro.build) (static output)
 - HTML, CSS, vanilla JavaScript
-- No frameworks or build tools
 - Hosted on Vercel
+
+## Running locally
+
+```
+npm install
+npm run dev
+```
 
 ## Sections
 
