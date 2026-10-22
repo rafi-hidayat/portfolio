@@ -1,0 +1,57 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Chip from '../../components/Chip.astro';
+import { getProjects } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map(project => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { title, description, image, label, tech, links } = project.data;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={`${title} | Rafi Aqila Hidayat`} description={description} active="projects">
+  <section class="article-page">
+    <div class="container">
+
+      <a href="/projects" class="article-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>
+        All projects
+      </a>
+
+      <div class="article-header">
+        {label && <span class="project-label">{label}</span>}
+        <h1 class="article-header__title">{title}</h1>
+        <p class="project-lede">{description}</p>
+        {links.length > 0 && (
+          <div class="project-page__links">
+            {links.map((link, i) => (
+              <a href={link.url} target="_blank" rel="noopener" class:list={['btn', 'btn--sm', i === 0 ? 'btn--primary' : 'btn--subtle']}>
+                {link.label}
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12L12 4M12 4H6M12 4v6"/></svg>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div class="project-hero">
+        <img src={image} alt={title} onerror="this.parentElement.style.display='none'" />
+      </div>
+
+      <div class="article-content">
+        <Content />
+
+        <h2>Tech stack</h2>
+        <div class="project-page__tech">
+          {tech.map(t => <Chip {...t} />)}
+        </div>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

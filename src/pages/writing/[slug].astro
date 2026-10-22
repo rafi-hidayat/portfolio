@@ -1,0 +1,43 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getArticles } from '../../lib/content';
+import { formatDate } from '../../lib/format';
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  return articles.map(article => ({ params: { slug: article.id }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const { title, description, date, readTime, tags } = article.data;
+const { Content } = await render(article);
+---
+
+<BaseLayout title={`${title} | Rafi Aqila Hidayat`} description={description} ogType="article" active="writing">
+  <section class="article-page">
+    <div class="container">
+
+      <a href="/writing" class="article-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>
+        All writing
+      </a>
+
+      <div class="article-header">
+        <h1 class="article-header__title">{title}</h1>
+        <div class="article-header__meta">
+          <span>{formatDate(date)}</span>
+          <span>&middot;</span>
+          <span>{readTime}</span>
+          <span>&middot;</span>
+          {tags.map(tag => <span class="chip">{tag}</span>)}
+        </div>
+      </div>
+
+      <div class="article-content">
+        <Content />
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

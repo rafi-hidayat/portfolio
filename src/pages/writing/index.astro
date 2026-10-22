@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getArticles } from '../../lib/content';
+
+const articles = await getArticles();
+---
+
+<BaseLayout
+  title="Writing | Rafi Aqila Hidayat"
+  description="Articles by Rafi Aqila Hidayat on data, analytics and AI."
+  active="writing"
+>
+  <section class="section section--page-top">
+    <div class="container">
+      <p class="section__eyebrow reveal">Writing</p>
+      <h2 class="section__title reveal">Articles</h2>
+      <div class="articles-grid reveal-stagger">
+        {articles.map(article => <ArticleCard article={article} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

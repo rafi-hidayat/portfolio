@@ -1,0 +1,10 @@
+---
+interface Props {
+  name: string;
+  icon?: string;
+}
+
+const { name, icon } = Astro.props;
+---
+
+<span class="chip">{icon && <img src={icon} alt="" onerror="this.style.display='none'" />}{name}</span>
