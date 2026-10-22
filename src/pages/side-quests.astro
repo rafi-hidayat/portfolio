@@ -9,10 +9,11 @@ const photoFor = (slug: string) =>
   Object.entries(photos).find(([path]) => path.split('/').pop()!.replace(/\.\w+$/, '') === slug)?.[1].default;
 
 // Placeholder until the side-quests collection lands (tennis, hiking, travel posts).
+// focus: which part of the photo stays in frame when cropped (CSS object-position; "center 70%" keeps more of the bottom).
 const categories = [
-  { slug: 'tennis', name: 'Tennis', blurb: 'How my amateur league season is going.' },
-  { slug: 'hiking', name: 'Hiking', blurb: 'Trails, photos and stories from each hike.' },
-  { slug: 'travel', name: 'Travel', blurb: 'Places I have been and what I found there.' },
+  { slug: 'tennis', name: 'Tennis', blurb: 'How my amateur league season is going.', focus: 'center 70%' },
+  { slug: 'hiking', name: 'Hiking', blurb: 'Trails, photos and stories from each hike.', focus: 'center 70%' },
+  { slug: 'travel', name: 'Travel', blurb: 'Places I have been and what I found there.', focus: 'center 70%' },
 ].map(c => ({ ...c, photo: photoFor(c.slug) }));
 ---
 
@@ -29,7 +30,7 @@ const categories = [
         {categories.map(c => (
           <div class="quest-row reveal">
             <div class="quest-row__photo">
-              {c.photo && <Image src={c.photo} alt={c.name} widths={[400, 800]} sizes="(max-width: 768px) 100vw, 400px" />}
+              {c.photo && <Image src={c.photo} alt={c.name} style={`object-position: ${c.focus}`} widths={[400, 800]} sizes="(max-width: 768px) 100vw, 400px" />}
             </div>
             <div class="quest-row__body">
               <h3 class="quest-row__name">{c.name}</h3>
