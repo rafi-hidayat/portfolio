@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../lib/format';
+
+interface Props {
+  article: CollectionEntry<'writing'>;
+}
+
+const { article } = Astro.props;
+const { title, summary, date, readTime, tags } = article.data;
+---
+
+<a href={`/writing/${article.id}`} class="article-card reveal">
+  <div class="article-card__body">
+    <h3 class="article-card__title">{title}</h3>
+    <p class="article-card__summary">{summary}</p>
+    <div class="article-card__meta">
+      <span class="article-card__date">{formatDate(date)}</span>
+      <span class="article-card__dot">&middot;</span>
+      <span class="article-card__read">{readTime}</span>
+    </div>
+    <div class="article-card__tags">
+      {tags.map(tag => <span class="chip">{tag}</span>)}
+    </div>
+    <span class="btn btn--primary btn--sm article-card__cta">
+      Read Article
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </span>
+  </div>
+</a>

@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getProjects } from '../../lib/content';
+
+const projects = await getProjects();
+---
+
+<BaseLayout
+  title="Projects | Rafi Aqila Hidayat"
+  description="Data engineering, AI and automation projects by Rafi Aqila Hidayat."
+  active="projects"
+>
+  <section class="section section--dark section--page-top">
+    <div class="container">
+      <p class="section__eyebrow reveal">Selected work</p>
+      <h2 class="section__title reveal">Projects</h2>
+      <div class="projects-grid reveal-stagger">
+        {projects.map(project => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

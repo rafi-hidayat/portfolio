@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Chip from './Chip.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, summary, image, badge, tech } = project.data;
+
+// Keep cards compact; the project page lists the full stack.
+const MAX_CHIPS = 5;
+const shownTech = tech.slice(0, MAX_CHIPS);
+const hiddenCount = tech.length - shownTech.length;
+---
+
+<a href={`/projects/${project.id}`} class="project-card reveal">
+  <div class="project-img">
+    <img src={image} alt={title} onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+    <div class="project-img__placeholder" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"><rect x="6" y="10" width="36" height="28" rx="4"/><circle cx="18" cy="22" r="4"/><path d="M6 34l10-10 8 8 6-6 12 12"/></svg>
+    </div>
+    {badge && <div class="project-badge">{badge}</div>}
+  </div>
+  <div class="project-body">
+    <h3 class="project-title">{title}</h3>
+    <p class="project-desc">{summary}</p>
+    <div class="project-tech">
+      {shownTech.map(t => <Chip {...t} />)}
+      {hiddenCount > 0 && <span class="chip">+{hiddenCount} more</span>}
+    </div>
+    <div class="project-links">
+      <span class="btn btn--primary btn--sm">
+        View Project
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </span>
+    </div>
+  </div>
+</a>
